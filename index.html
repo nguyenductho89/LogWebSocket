@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WebSocket Test</title>
+  <script>
+    const socket = new WebSocket('ws://localhost:9999');
+
+    socket.onmessage = function (event) {
+      const messageDiv = document.createElement('div');
+      messageDiv.textContent = event.data;
+      document.getElementById('message-container').appendChild(messageDiv);
+    };
+  </script>
+</head>
+<body>
+  <h1>WebSocket Test</h1>
+  <div id="message-container"></div>
+</body>
+</html>
