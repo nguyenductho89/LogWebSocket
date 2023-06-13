@@ -70,7 +70,9 @@
   <script>
     const socket = new WebSocket('ws://localhost:9999');
 
-    socket.onmessage = function (event) {
+// WebSocket code here...
+
+socket.onmessage = function (event) {
   const message = event.data;
   const timestamp = new Date().toLocaleTimeString(); // Get the current time
 
@@ -93,8 +95,8 @@
       messageRows[i].classList.remove('active');
     }
 
-    // Add the active class to the selected row
-    messageRow.classList.add('active');
+    // Toggle the active class on the selected row
+    messageRow.classList.toggle('active');
 
     // Determine the content type and format accordingly
     if (message.startsWith('<') && message.endsWith('>')) {
@@ -110,9 +112,12 @@
     }
   });
 
-  // Append message row to message list container
-  document.getElementById('message-list').appendChild(messageRow);
+  const messageList = document.getElementById('message-list');
+
+  // Insert message row at the beginning of message list container
+  messageList.prepend(messageRow);
 };
+
 
 
 
