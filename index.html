@@ -55,6 +55,9 @@
 .timestamp.error {
   color: red;
 }
+.message-row.active {
+  background-color: #00b4d8;
+}
 
   </style>
   <script>
@@ -77,6 +80,15 @@
     const messageDetail = document.getElementById('message-detail');
     messageDetail.innerHTML = '';
 
+    // Remove the active class from all rows
+    const messageRows = document.getElementsByClassName('message-row');
+    for (let i = 0; i < messageRows.length; i++) {
+      messageRows[i].classList.remove('active');
+    }
+
+    // Add the active class to the selected row
+    messageRow.classList.add('active');
+
     // Determine the content type and format accordingly
     if (message.startsWith('<') && message.endsWith('>')) {
       // XML content
@@ -94,6 +106,7 @@
   // Append message row to message list container
   document.getElementById('message-list').appendChild(messageRow);
 };
+
 
 
 
