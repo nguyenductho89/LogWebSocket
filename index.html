@@ -8,11 +8,14 @@
   <style>
     #message-container {
       display: flex;
+      flex-direction: row;
+      gap: 15px; /* Vertical spacing between elements */
     }
 
     #message-list {
       flex: 1;
       overflow-y: scroll;
+      border: 1px solid #ccc; /* Add border */
     }
 
     .message-row {
@@ -25,14 +28,18 @@
     }
 
     .message-row:hover {
-      background-color: #f5f5f5;
+      background-color: #00b4d8;
     }
 
     #message-detail {
       flex: 1;
-      padding: 10px;
-      border-left: 1px solid #ccc;
-      white-space: pre-wrap;
+      overflow-y: scroll;
+      border: 1px solid #ccc; /* Add border */
+    }
+
+    .panel-title {
+      font-weight: bold;
+      margin-bottom: 5px;
     }
 
     .debug {
@@ -128,14 +135,24 @@
   </script>
 </head>
 <body>
-  <h1>WebSocket Test</h1>
-  <div>
-    <input type="text" id="search-text" placeholder="Search" oninput="filterMessages()">
-  </div>
-  <div id="message-container">
-    <div id="message-list"></div>
-    <div id="message-detail"></div>
-  </div>
+    <h1>SBLogs</h1>
+    <div>
+      <input type="text" id="search-text" placeholder="Search" oninput="filterMessages()">
+    </div>
+    <br>
+    <div id="message-container">
+        <div id="message-header">
+          <div class="panel-title">All Logs</div>
+        </div>
+
+        <div id="message-list"></div>
+
+        <div id="message-header">
+          <div class="panel-title">Log Detail</div>
+        </div>
+
+        <div id="message-detail"></div>
+      </div>
 
   <script>
     // Initialize syntax highlighting
