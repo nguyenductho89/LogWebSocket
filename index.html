@@ -34,44 +34,68 @@
       border-left: 1px solid #ccc;
       white-space: pre-wrap;
     }
+
+    .debug {
+  color: black;
+}
+
+.error {
+  color: red;
+}
+
+.timestamp {
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.timestamp.debug {
+  color: black;
+}
+
+.timestamp.error {
+  color: red;
+}
+
   </style>
   <script>
     const socket = new WebSocket('ws://localhost:9999');
 
     socket.onmessage = function (event) {
-      const message = event.data;
+  const message = event.data;
+  const timestamp = new Date().toLocaleTimeString(); // Get the current time
 
-      // Create message row
-      const messageRow = document.createElement('div');
-      messageRow.className = 'message-row';
-      messageRow.textContent = message;
+  // Determine the message type
+  const messageType = message.startsWith('[ERROR]') ? 'error' : 'debug';
 
-      // Add click event listener to show full message in detail panel
-      messageRow.addEventListener('click', function () {
-  const messageDetail = document.getElementById('message-detail');
-  messageDetail.innerHTML = '';
+  // Create message row with timestamp and message type
+  const messageRow = document.createElement('div');
+  messageRow.className = `message-row ${messageType}`;
+  messageRow.innerHTML = `<span class="timestamp ${messageType}">[${timestamp}]</span> ${message}`;
 
-  // Determine the content type and format accordingly
-  if (message.startsWith('<') && message.endsWith('>')) {
-    // XML content
-    messageDetail.textContent = message;
-  } else if (message.startsWith('{') && message.endsWith('}')) {
-    // JSON content
-    const formattedJSON = prettyPrintJson.toHtml(message);
-    messageDetail.innerHTML = formattedJSON;
-  } else if (message.startsWith('<?xml') && message.endsWith('?>')) {
-    // Ignore XML content and display as plain text
-    messageDetail.textContent = message;
-  } else {
-    // Plain text content
-    messageDetail.textContent = message;
-  }
-});
+  // Add click event listener to show full message in detail panel
+  messageRow.addEventListener('click', function () {
+    const messageDetail = document.getElementById('message-detail');
+    messageDetail.innerHTML = '';
+
+    // Determine the content type and format accordingly
+    if (message.startsWith('<') && message.endsWith('>')) {
+      // XML content
+      messageDetail.textContent = message;
+    } else if (message.startsWith('{') && message.endsWith('}')) {
+      // JSON content
+      const formattedJSON = prettyPrintJson.toHtml(message);
+      messageDetail.innerHTML = formattedJSON;
+    } else {
+      // Plain text content
+      messageDetail.textContent = message;
+    }
+  });
+
+  // Append message row to message list container
+  document.getElementById('message-list').appendChild(messageRow);
+};
 
 
-      // Append message row to message list container
-      document.getElementById('message-list').appendChild(messageRow);
-    };
 
     function filterMessages() {
       const searchText = document.getElementById('search-text').value.toLowerCase();
