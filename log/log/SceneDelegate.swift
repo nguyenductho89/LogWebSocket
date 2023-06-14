@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let configuration = URLSessionConfiguration.af.default
             configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
         let session = Session(eventMonitors: [ webSocketManager ])
-
+        UIViewController.swizzleViewWillDisappear()
         webSocketManager.connectToWebSocket()
             // Usage example
             // Send log message

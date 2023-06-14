@@ -34,3 +34,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+extension UIViewController {
+
+    @objc func viewWillDisappearOverride(_ animated: Bool) {
+        self.viewWillDisappearOverride(animated) //Incase we need to override this method
+        webSocketManager.sendLogMessage(message: "[Screen] 📲 \(self.classForCoder)")
+    }
+
+    static func swizzleViewWillDisappear() {
+    //Make sure This isn't a subclass of UIViewController, So that It applies to all UIViewController childs
+        if self != UIViewController.self {
+            return
+        }
+        let originalSelector = #selector(UIViewController.viewWillAppear(_:))
+        let swizzledSelector = #selector(UIViewController.viewWillDisappearOverride(_:))
+        guard let originalMethod = class_getInstanceMethod(self, originalSelector),
+            let swizzledMethod = class_getInstanceMethod(self, swizzledSelector) else { return }
+        method_exchangeImplementations(originalMethod, swizzledMethod)
+    }
+}

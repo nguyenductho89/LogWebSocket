@@ -19,7 +19,13 @@ class ViewController: UIViewController {
         
         webSocketManager.sendLogMessage(message: BSBacktraceLogger.bs_backtraceOfAllThread())
                                         }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//    }
 
 
 }
+
+class MyVC: ViewController {}
 
