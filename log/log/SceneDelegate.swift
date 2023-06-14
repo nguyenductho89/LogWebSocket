@@ -11,19 +11,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
+    let webSocketManager = WebSocketManager()
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
-        let webSocketManager = WebSocketManager()
+        
         webSocketManager.connectToWebSocket()
         DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
             // Usage example
             // Send log message
-            [0,1,2,3,4,5].forEach { _ in
-                webSocketManager.sendLogMessage(message: "logMessage : \(Date())")}
+            [0,1,2,3,4,5].makeIterator().forEach( { index in
+                self.webSocketManager.sendLogMessage(message: "\(index) logMessage : \(Date())")})
             
         })
     }
@@ -63,6 +63,7 @@ import Foundation
 
 class WebSocketManager {
     var webSocketTask: URLSessionWebSocketTask?
+    let sendQueue = DispatchQueue(label: "com.yourapp.websocket.sendQueue")
 
     func connectToWebSocket() {
         let url = URL(string: "ws://192.168.1.3:9999")!
@@ -74,12 +75,14 @@ class WebSocketManager {
     }
 
     func sendLogMessage(message: String) {
-        let message = URLSessionWebSocketTask.Message.string(message)
-        webSocketTask?.send(message) { error in
-            if let error = error {
-                print("Error sending WebSocket message: \(error)")
-            } else {
-                print("Log message sent successfully")
+        sendQueue.async { [weak self] in
+            let message = URLSessionWebSocketTask.Message.string(message)
+            self?.webSocketTask?.send(message) { error in
+                if let error = error {
+                    print("Error sending WebSocket message: \(error)")
+                } else {
+                    print("Log message sent successfully")
+                }
             }
         }
     }
@@ -102,5 +105,3 @@ class WebSocketManager {
         }
     }
 }
-
-
