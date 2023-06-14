@@ -41,8 +41,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //                        info.append(formattedSymbol)
 //                    }
 //
-//                    
-//                    webSocketManager.sendLogMessage(message: info)
+//
+                
+                   // webSocketManager.sendLogMessage(message: "\(index)")
                // }
                 
             })
