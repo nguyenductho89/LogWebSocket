@@ -6,26 +6,47 @@
 //
 
 import UIKit
-
+import Alamofire
+let webSocketManager = WebSocketManager()
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-    let webSocketManager = WebSocketManager()
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
-        
+        let configuration = URLSessionConfiguration.af.default
+            configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
+        let session = Session(eventMonitors: [ webSocketManager ])
+
         webSocketManager.connectToWebSocket()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
             // Usage example
             // Send log message
-            [0,1,2,3,4,5].makeIterator().forEach( { index in
-                self.webSocketManager.sendLogMessage(message: "\(index) logMessage : \(Date())")})
+            Array(0...30000).makeIterator().forEach( { index in
+                //DispatchQueue.global().sync {
+                   // Thread.sleep(forTimeInterval: 1.0)
+                    
+                    
+//                    var info  = ""
+//                    let callStackSymbols = Thread.callStackSymbols
+//
+//                    for (index, symbol) in callStackSymbols.enumerated() {
+//                        let components = symbol.components(separatedBy: " ")
+//                        let methodName = components[1]
+//                        let className = components[2]
+//                        let formattedSymbol = "\(index): methodName=\(methodName) in className=\(className)\n"
+//                        info.append(formattedSymbol)
+//                    }
+//
+//                    
+//                    webSocketManager.sendLogMessage(message: info)
+               // }
+                
+            })
             
-        })
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -61,7 +82,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 import Foundation
 
-class WebSocketManager {
+class WebSocketManager: EventMonitor {
     var webSocketTask: URLSessionWebSocketTask?
     let sendQueue = DispatchQueue(label: "com.yourapp.websocket.sendQueue")
 
@@ -103,5 +124,18 @@ class WebSocketManager {
 
             self?.receiveMessages() // Continuously receive messages
         }
+    }
+    
+    func requestDidResume(_ request: Request) {
+        let body = request.request.flatMap { $0.httpBody.map { String(decoding: $0, as: UTF8.self) } } ?? "None"
+        let message = """
+        ⚡️ Request Started: \(request)
+        ⚡️ Body Data: \(body)
+        """
+        self.sendLogMessage(message: message)
+    }
+
+    func requestDidFinish(_ request: Request) {
+        self.sendLogMessage(message: request.cURLDescription())
     }
 }

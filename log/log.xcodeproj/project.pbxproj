@@ -13,6 +13,12 @@
 		CB3F0AA12A395C0400971533 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB3F0A9F2A395C0400971533 /* Main.storyboard */; };
 		CB3F0AA32A395C0600971533 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB3F0AA22A395C0600971533 /* Assets.xcassets */; };
 		CB3F0AA62A395C0600971533 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB3F0AA42A395C0600971533 /* LaunchScreen.storyboard */; };
+		CB3F0AAF2A396C3300971533 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CB3F0AAE2A396C3300971533 /* Alamofire */; };
+		CB3F0AB52A39BC8D00971533 /* DLADDR.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3F0AB12A39BC8D00971533 /* DLADDR.swift */; };
+		CB3F0AB62A39BC8D00971533 /* DLADDRParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3F0AB22A39BC8D00971533 /* DLADDRParser.swift */; };
+		CB3F0AB72A39BC8D00971533 /* CallStackSymbolsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3F0AB32A39BC8D00971533 /* CallStackSymbolsError.swift */; };
+		CB3F0AB82A39BC8D00971533 /* CallStackSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3F0AB42A39BC8D00971533 /* CallStackSymbols.swift */; };
+		CB3F0ABC2A39BFFD00971533 /* BSBacktraceLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3F0ABB2A39BFFD00971533 /* BSBacktraceLogger.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +30,13 @@
 		CB3F0AA22A395C0600971533 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB3F0AA52A395C0600971533 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB3F0AA72A395C0600971533 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB3F0AB12A39BC8D00971533 /* DLADDR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DLADDR.swift; sourceTree = "<group>"; };
+		CB3F0AB22A39BC8D00971533 /* DLADDRParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DLADDRParser.swift; sourceTree = "<group>"; };
+		CB3F0AB32A39BC8D00971533 /* CallStackSymbolsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallStackSymbolsError.swift; sourceTree = "<group>"; };
+		CB3F0AB42A39BC8D00971533 /* CallStackSymbols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallStackSymbols.swift; sourceTree = "<group>"; };
+		CB3F0AB92A39BFFC00971533 /* log-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "log-Bridging-Header.h"; sourceTree = "<group>"; };
+		CB3F0ABA2A39BFFD00971533 /* BSBacktraceLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSBacktraceLogger.h; sourceTree = "<group>"; };
+		CB3F0ABB2A39BFFD00971533 /* BSBacktraceLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSBacktraceLogger.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB3F0AAF2A396C3300971533 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +70,9 @@
 		CB3F0A982A395C0400971533 /* log */ = {
 			isa = PBXGroup;
 			children = (
+				CB3F0ABA2A39BFFD00971533 /* BSBacktraceLogger.h */,
+				CB3F0ABB2A39BFFD00971533 /* BSBacktraceLogger.m */,
+				CB3F0AB02A39BC8D00971533 /* CallStackSymbols */,
 				CB3F0A992A395C0400971533 /* AppDelegate.swift */,
 				CB3F0A9B2A395C0400971533 /* SceneDelegate.swift */,
 				CB3F0A9D2A395C0400971533 /* ViewController.swift */,
@@ -63,8 +80,20 @@
 				CB3F0AA22A395C0600971533 /* Assets.xcassets */,
 				CB3F0AA42A395C0600971533 /* LaunchScreen.storyboard */,
 				CB3F0AA72A395C0600971533 /* Info.plist */,
+				CB3F0AB92A39BFFC00971533 /* log-Bridging-Header.h */,
 			);
 			path = log;
+			sourceTree = "<group>";
+		};
+		CB3F0AB02A39BC8D00971533 /* CallStackSymbols */ = {
+			isa = PBXGroup;
+			children = (
+				CB3F0AB12A39BC8D00971533 /* DLADDR.swift */,
+				CB3F0AB22A39BC8D00971533 /* DLADDRParser.swift */,
+				CB3F0AB32A39BC8D00971533 /* CallStackSymbolsError.swift */,
+				CB3F0AB42A39BC8D00971533 /* CallStackSymbols.swift */,
+			);
+			path = CallStackSymbols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +112,9 @@
 			dependencies = (
 			);
 			name = log;
+			packageProductDependencies = (
+				CB3F0AAE2A396C3300971533 /* Alamofire */,
+			);
 			productName = log;
 			productReference = CB3F0A962A395C0400971533 /* log.app */;
 			productType = "com.apple.product-type.application";
@@ -99,6 +131,7 @@
 				TargetAttributes = {
 					CB3F0A952A395C0400971533 = {
 						CreatedOnToolsVersion = 14.2;
+						LastSwiftMigration = 1420;
 					};
 				};
 			};
@@ -111,6 +144,9 @@
 				Base,
 			);
 			mainGroup = CB3F0A8D2A395C0400971533;
+			packageReferences = (
+				CB3F0AAD2A396C3300971533 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = CB3F0A972A395C0400971533 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -139,8 +175,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB3F0A9E2A395C0400971533 /* ViewController.swift in Sources */,
+				CB3F0AB62A39BC8D00971533 /* DLADDRParser.swift in Sources */,
+				CB3F0AB82A39BC8D00971533 /* CallStackSymbols.swift in Sources */,
+				CB3F0ABC2A39BFFD00971533 /* BSBacktraceLogger.m in Sources */,
 				CB3F0A9A2A395C0400971533 /* AppDelegate.swift in Sources */,
+				CB3F0AB52A39BC8D00971533 /* DLADDR.swift in Sources */,
 				CB3F0A9C2A395C0400971533 /* SceneDelegate.swift in Sources */,
+				CB3F0AB72A39BC8D00971533 /* CallStackSymbolsError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +326,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = J3Q6NXR57K;
@@ -304,6 +346,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = thond.log;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "log/log-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -314,6 +358,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = J3Q6NXR57K;
@@ -333,6 +378,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = thond.log;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "log/log-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -360,6 +406,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CB3F0AAD2A396C3300971533 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CB3F0AAE2A396C3300971533 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB3F0AAD2A396C3300971533 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CB3F0A8E2A395C0400971533 /* Project object */;
 }
