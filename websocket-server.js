@@ -3,20 +3,19 @@ const fs = require('fs');
 const WebSocket = require('ws');
 
 const server = http.createServer((req, res) => {
-  if (req.url === '/index.html') {
-    fs.readFile('index.html', (err, data) => {
-      if (err) {
-        res.writeHead(500);
-        res.end('Error loading index.html');
-      } else {
-        res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.end(data);
-      }
-    });
-  } else {
-    res.writeHead(404);
-    res.end('Page not found');
+  if (req.url === '/') {
+    req.url = '/index.html'; // Set default route to index.html
   }
+
+  fs.readFile(`.${req.url}`, (err, data) => {
+    if (err) {
+      res.writeHead(404);
+      res.end('File not found');
+    } else {
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.end(data);
+    }
+  });
 });
 
 const wss = new WebSocket.Server({ noServer: true });
