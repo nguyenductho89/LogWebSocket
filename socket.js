@@ -7,15 +7,17 @@ function showMessageDetail(message) {
 }
 socket.onmessage = function (event) {
   const message = event.data;
-  const timestamp = new Date().toLocaleTimeString(); // Get the current time
-
-  // Determine the message type
-  const messageType = message.startsWith('[ERROR]') ? 'error' : 'debug';
-
+  const currentDate = new Date();
+  const hours = currentDate.getHours().toString().padStart(2, '0');
+  const minutes = currentDate.getMinutes().toString().padStart(2, '0');
+  const seconds = currentDate.getSeconds().toString().padStart(2, '0');
+  const milliseconds = currentDate.getMilliseconds().toString().padStart(3, '0');
+  
+  const timestamp = `${hours}:${minutes}:${seconds}.${milliseconds}`;
   // Create message row with timestamp and message type
   const messageRow = document.createElement('div');
-  messageRow.className = `message-row ${messageType}`;
-  messageRow.innerHTML = `<span class="timestamp ${messageType}">[${timestamp}]</span> ${message}`;
+  messageRow.className = `message-row`;
+  messageRow.innerHTML = `<span class="timestamp">[${timestamp}]</span> ${message}`;
 
   // Add click event listener to show full message in detail panel
   messageRow.addEventListener('click', function () {
