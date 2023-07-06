@@ -36,7 +36,7 @@ socket.onmessage = function (event) {
     // Determine the content type and format accordingly
     if (message.startsWith('<') && message.endsWith('>')) {
       // XML content
-      messageDetail.innerHTML = message;
+      messageDetail.textContent = message;
     } else if (message.startsWith('{') && message.endsWith('}')) {
       // JSON content
       const formattedJSON = prettyPrintJson.toHtml(message);
