@@ -17,7 +17,7 @@ socket.onmessage = function (event) {
   // Create message row with timestamp and message type
   const messageRow = document.createElement('div');
   messageRow.className = `message-row`;
-  messageRow.innerHTML = `<span class="timestamp">[${timestamp}]</span> ${message}`;
+  messageRow.innerHTML = `${message}`;
 
   // Add click event listener to show full message in detail panel
   messageRow.addEventListener('click', function () {
