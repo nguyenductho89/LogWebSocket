@@ -1,10 +1,10 @@
 const socket = new WebSocket('ws://localhost:9999');
 
-// WebSocket code here...
 function showMessageDetail(message) {
   const messageText = document.getElementById('message-text');
   messageText.textContent = message;
 }
+
 socket.onmessage = function (event) {
   const message = event.data;
   const currentDate = new Date();
@@ -12,7 +12,7 @@ socket.onmessage = function (event) {
   const minutes = currentDate.getMinutes().toString().padStart(2, '0');
   const seconds = currentDate.getSeconds().toString().padStart(2, '0');
   const milliseconds = currentDate.getMilliseconds().toString().padStart(3, '0');
-  
+
   const timestamp = `${hours}:${minutes}:${seconds}.${milliseconds}`;
   // Create message row with timestamp and message type
   const messageRow = document.createElement('div');
@@ -43,7 +43,7 @@ socket.onmessage = function (event) {
       messageDetail.innerHTML = formattedJSON;
     } else {
       // Plain text content
-      messageDetail.innerHTML = message;;
+      messageDetail.innerHTML = message;
     }
   });
 

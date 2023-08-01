@@ -1,125 +1,13 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>SBLogs</title>
+  <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/pretty-print-json/dist/pretty-print-json.min.js"></script>
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    body {
-      background-color: #f2f2f2;
-      font-family: Arial, sans-serif;
-    }
-
-    h1 {
-      text-align: center;
-      padding-top: 30px;
-      color: #333;
-    }
-
-    #message-container {
-      display: flex;
-      flex-direction: row;
-      gap: 15px;
-      margin-bottom: 500px;
-    }
-
-    #message-list {
-      height: 80vh;
-      flex: 1;
-      overflow-y: scroll;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      padding: 10px;
-      background-color: #fff;
-    }
-
-    #message-detail {
-      flex: 1;
-      overflow-y: scroll;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      padding: 10px;
-      background-color: #fff;
-      white-space: pre-wrap;
-    }
-
-    @keyframes slide-in {
-  0% {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.message-row {
-  cursor: pointer;
-  padding: 5px;
-  border-bottom: 1px solid #ccc;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  height: 30px;
-  animation: slide-in 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-    .panel-title {
-      font-weight: bold;
-      margin-bottom: 5px;
-      color: #333;
-    }
-
-    .debug {
-      color: #333;
-    }
-
-    .error {
-      color: red;
-    }
-
-    .timestamp {
-      margin-right: 5px;
-      font-weight: bold;
-      color: #666;
-    }
-
-    .timestamp.debug {
-      color: #333;
-    }
-
-    .timestamp.error {
-      color: red;
-    }
-
-    .message-row.active {
-      background-color: #00b4d8;
-      color: #fff;
-    }
-
-    input[type="text"] {
-      width: 300px;
-      height: 30px;
-      padding: 5px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-      outline: none;
-      transition: box-shadow 0.3s ease-in-out;
-    }
-
-    input[type="text"]:focus {
-      box-shadow: 0 0 5px #00b4d8;
-    }
-  </style>
   <script src="socket.js"></script>
-
 </head>
-
 <body>
   <h1>SBLogs</h1>
   <div style="text-align: center;">
@@ -127,24 +15,19 @@
   </div>
   <br>
   <div id="message-container">
-    <div id="message-header">
+    <div class="panel-container">
       <div class="panel-title">All Logs</div>
+      <div id="message-list"></div>
     </div>
-
-    <div id="message-list"></div>
-
-    <div id="message-header">
+    <div class="panel-container">
       <div class="panel-title">Log Detail</div>
+      <div id="message-detail"></div>
+      <pre id="message-text"></pre>
     </div>
-
-    <div id="message-detail"></div>
-    <pre id="message-text"></pre>
   </div>
-
   <script>
     // Initialize syntax highlighting
     hljs.initHighlightingOnLoad();
   </script>
 </body>
-
 </html>
